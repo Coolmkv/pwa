@@ -1,178 +1,194 @@
-@extends("layouts.webSite")
-@section("title","Parivartan Welfare Association")
-@section("content")
+@extends('layouts.webSite')
+@section('title', 'Parivartan Welfare Association')
+@section('content')
+@include('include.slider')
 
-      <!-- section -->
-      <section class="main_full banner_section_top">
+
+    <div id="about" class="section lb">
         <div class="container-fluid">
-          <div class="row">
-             <div class="full">
-                  <div class="slider_banner">
-                    <img class="img-responsive" src="assets/images/slider_img.png" alt="#" />
-                      <div class="slide_cont">
-                        <div class="slider_cont_inner">
-                          <h3>Parivartan Welfare Association</h3>
-                        <p>Parivartan Welfare Association Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit</p>
-                        <a class="blue_bt" href="#">Read More</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="message-box">
+                        <h2>Welcome to Parivartan Welfare Association</h2>
+                        <p>With the idea of ​​nurturing the hidden talents in the rural areas, some people from 6 states
+                            including Haryana province,
+                            having an idea to promote from small children to trainers,
+                            registered the organization "Parivartan Welfare Association" which will play a new role in
+                            nation building. </p>
+                        <p>ग्रामीण आँचल में छिपी प्रतिभाओं को निखारने के विचार को लेकर जिसमें छोटे बच्चों से लेकर प्रशिक्षको
+                            तक को बढ़ावा देने के लिए एक विचार वाले हरियाणा
+                            प्रान्त समेत 6 प्रदेशों के कुछ लोगों ने "परिवर्तन वेलफेयर एसोसिएशन" संस्था का पंजीकरण कराया
+                            जिससे राष्ट्र निर्माण में नई भूमिका अदा की जा सके।</p>
+
+                        <a href="about.php" class="sim-btn hvr-rectangle-out"><span>More About Us</span></a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+
+                <div class="col-md-6">
+                    <div class="right-box-pro wow fadeIn">
+                        <img src="uploads/about_04.jpg" alt="" class="img-fluid img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+
+
+    <div id="services" class="section lb">
+        <div class="container-fluid">
+            <div class="section-title text-center">
+                <h3>Events</h3>
+                <!-- <p>Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus.</p> -->
+            </div><!-- end title -->
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Kabaddi.png">
                         </div>
-                      </div>
-                  </div>
-                </div>
-          </div>
-        </div>
-      </section>
-      <!-- end section -->
-    
-     <!-- about section -->
-      <section class="layout_padding section about_dottat">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-12 text_align_center">
-                  <div class="full heading_s1">
-                     <h2>About</h2>
-                  </div>
-                  <div class="full">
-                     <p class="large">Parivartan Welfare Association Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                  </div>
-               </div>
-               <div class="col-md-12">
-                  <div class="about_img margin_top_30  text_align_center">
-                     <img src="assets/images/ab_img.png" alt="#" />
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- end about section -->
+                        <h2>Kabaddi</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Wrestling.png">
+                        </div>
+                        <h2>Wrestling</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Athletics.png">
+                        </div>
+                        <h2>Athletics</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Judo.png">
+                        </div>
+                        <h2>Judo</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Volleyball.png">
+                        </div>
+                        <h2>Volleyball</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Basketball.png">
+                        </div>
+                        <h2>Basketball</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Badminton.png">
+                        </div>
+                        <h2>Badminton</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Yoga.png">
+                        </div>
+                        <h2>Yoga</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Gymnastics.png">
+                        </div>
+                        <h2>Gymnastics</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/Karate.png">
+                        </div>
+                        <h2>Karate</h2>
+                    </div>
+                </div><!-- end col -->
+                <div class="col-md-2">
+                    <div class="services-inner-box">
+                        <div class="">
+                            <img src="images/football.png">
+                        </div>
+                        <h2>Football</h2>
+                    </div>
+                </div><!-- end col -->
 
-      <!-- section -->
-      <section class="layout_padding section">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-12 text_align_center">
-                  <div class="full heading_s1">
-                     <h2>Our Events</h2>
-                  </div>
-                  <div class="full">
-                     <p class="large">Parivartan Welfare Association Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
 
-              <div class="col-md-4 text_align_center">
-                 <div class="cours">
-                   <img class="img-responsive" src="assets/images/cour1.png" alt="#" />
-                 </div>
-                 <h3>Kabaddi</h3>
-                 <p>Parivartan Welfare Association adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re</p>
-              </div>  
+    <div id="contact" class="section db">
+        <div class="container-fluid">
+            <div class="section-title text-center">
+                <h3>Contact Us</h3>
+                <p>Parivartan Welfare Association</p>
+            </div><!-- end title -->
 
-              <div class="col-md-4 text_align_center">
-                 <div class="cours">
-                   <img class="img-responsive" src="assets/images/cour2.png" alt="#" />
-                 </div>
-                 <h3>Football</h3>
-                 <p>Parivartan Welfare Association adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re</p>
-              </div> 
-
-              <div class="col-md-4 text_align_center">
-                 <div class="cours">
-                   <img class="img-responsive" src="assets/images/cour3.png" alt="#" />
-                 </div>
-                 <h3>Cricket</h3>
-                 <p>Parivartan Welfare Association adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re</p>
-              </div> 
-
-            </div>
             <div class="row">
-               <div class="col-md-12">
-                  <div class="full center">
-                      <a class="blue_bt" href="#">Read More</a>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- end section -->
-
-      <!-- section -->
-      <section class="layout_padding section">
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-lg-12 text_align_center">
-                  <div class="full heading_s1">
-                     <h2>Our Coaching Time</h2>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 cours_timging_bg">
-                 <div class="container">
-                    <div class="time_table">
-                          <ul><li>Monday</li><li>8 Am - 6 Pm</li></ul>
-                          <ul><li>Tuesday</li><li>9 Am - 5 Pm</li></ul>
-                          <ul><li>Wednesday</li><li>10 Am - 8 Pm</li></ul>
-                          <ul><li>Thursday</li><li>8  Am - 6 Pm</li></ul>
-                          <ul><li>Friday</li><li>6 Am - 4 Pm</li></ul>
-                          <ul><li>Saturday</li><li>9 Am - 5 Pm</li></ul>
-                          <ul><li>Sunday</li><li>Holiday</li></ul>
-                       </div>
-                 </div>        
-              </div> 
-            </div>
-         </div>
-      </section>
-      <!-- end section -->
-
-      <!-- section -->
-      <section class="layout_padding section">
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-lg-12 text_align_center">
-                  <div class="full heading_s1">
-                     <h2>Our Success Stories</h2>
-                  </div>
-                  <div class="full">
-                     <p class="large">Parivartan Welfare Association In ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo<br>consequat. Duis aute irure dolor in re</p>
-                  </div>
-               </div>
-               <div class="col-md-12 testimonial">
-                  <div class="full text_align_center">
-                     <img src="assets/images/testimon.png" alt="#" />
-                     <h3><span class="theme_color_text">koluda</span><br><small>Student</small></h3>
-                  </div>
-                  <div class="full margin_top_30 text_align_center">
-                    <h4>I have successfully completed</h4>
-                    <p>Parivartan Welfare Association adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud<br>exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re</p>
-                  </div>
-               </div>
-            </div>
-        </div>
-      </section>
-      <!-- end section -->
-
-    
-      <!-- section -->
-      <section class="section blue_pattern_bg" style="background-color: #3b3bff;">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <div class="full">
-                     <h4>Subscribe Now to Our Newsletter !</h4>
-                     <p>Parivartan Welfare Association adipiscing elit, sed do eiusmod tempor incididunt ut<br>labore et dolore magna aliqua.</p>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                 <div class="form_subribe">
-                    <form>
-                       <input type="email" name="email" placeholder="Enter Your Email" />
-                       <button>Subscribe</button>
-                    </form>
-                 </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- end section -->
-     @endsection
+                <div class="col-md-12">
+                    <div class="contact_form">
+                        <div id="message"></div>
+                        <form id="contactForm" name="sentMessage" novalidate="novalidate">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input class="form-control" id="name" type="text" placeholder="Your Name"
+                                            required="required" data-validation-required-message="Please enter your name.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input class="form-control" id="email" type="email" placeholder="Your Email"
+                                            required="required"
+                                            data-validation-required-message="Please enter your email address.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input class="form-control" id="phone" type="tel" placeholder="Your Phone"
+                                            required="required"
+                                            data-validation-required-message="Please enter your phone number.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="message" placeholder="Your Message" required="required"
+                                            data-validation-required-message="Please enter a message."></textarea>
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-12 text-center">
+                                    <div id="success"></div>
+                                    <button id="sendMessageButton" class="sim-btn hvr-rectangle-out"
+                                        data-text="Send Message" type="submit">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+@endsection
