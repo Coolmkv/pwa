@@ -28,7 +28,10 @@ use Inertia\Inertia;
 Route::get("/",[HomePageController::class,"homePage"]);
 Route::get("adminLogin",[AdminController::class,"adminLogin"]);
 Route::get('/dashboard', function () {
+    //return view("Dashboard.dashboard_home");
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get("new_dashboard",function(){
+    return view("Dashboard.dashboard_home");
+});
 require __DIR__.'/auth.php';
