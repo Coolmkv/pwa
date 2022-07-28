@@ -31,7 +31,8 @@ Route::get('/dashboard', function () {
     //return view("Dashboard.dashboard_home");
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get("new_dashboard",function(){
-    return view("Dashboard.dashboard_home");
-});
+ 
+
+Route::get("new-dashboard",[AdminController::class,"dashboard"])->name("dashboard");
+Route::get("site-navigation",[AdminController::class,"siteNav"])->name("siteNav");
 require __DIR__.'/auth.php';

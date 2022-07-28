@@ -3,7 +3,6 @@
 @section('content')
 @include('include.slider')
 
-
     <div id="about" class="section lb">
         <div class="container-fluid">
             <div class="row">

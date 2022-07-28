@@ -1,5 +1,5 @@
 @extends('layouts.dashboardLayout')
-@section('title', 'Dashboard')
+@section('title', 'Navigation')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <!-- Layout Demo -->
