@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomePageController;
-use Illuminate\Foundation\Application;
+//use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -31,8 +31,16 @@ Route::get('/dashboard', function () {
     //return view("Dashboard.dashboard_home");
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
- 
 
-Route::get("new-dashboard",[AdminController::class,"dashboard"])->name("dashboard");
-Route::get("site-navigation",[AdminController::class,"siteNav"])->name("siteNav");
+Route::middleware(['auth'])->group(function () {
+    Route::get("/new-dashboard",[AdminController::class,"dashboard"])->name("new-dashboard");
+    Route::get("site-navigation",[AdminController::class,"siteNav"])->name("siteNav");
+    Route::post("addEditNavigation",[AdminController::class,"addEditNavigation"])->name("addNaviagtion");
+    Route::post("navDataTable",[AdminController::class,"navDataTable"])->name("navDataTable");
+});
+
+
 require __DIR__.'/auth.php';
+
+Route::get("login",[AdminController::class,"Login"])->name("login");
+Route::post("AdminUserLogin",[AdminController::class,"AdminLoginUser"])->name("AdminLogin");
