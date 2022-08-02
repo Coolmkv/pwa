@@ -115,7 +115,12 @@ class AdminController extends Controller
             $this->reportException($exception);
         }
     }
-
+    
+    /**
+     * navDataTable
+     *
+     * @return void
+     */
     public function navDataTable(){
         $data = NavMenu::select(NavMenu::ID,
         NavMenu::URL,
@@ -130,13 +135,22 @@ class AdminController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
      
-                           $btn = '<a href="javascript:void(0)" onclick="edit(\''.$row->{NavMenu::ID}.'\')" class="edit btn btn-primary btn-sm">Edit</a>'.
+                           $btn = '<a data-row="'.base64_encode(json_encode($row)).'" href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>'.
                            '<a href="javascript:void(0)" onclick="delete(\''.$row->{NavMenu::ID}.'\')" class="edit btn btn-danger btn-sm">Delete</a>';
     
                             return $btn;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
+    }
+
+    public function manageGallery(){
+        try{
+            return view("Dashboard.Pages.manageGallery");
+
+        }catch(Exception $exception){
+            $this->reportException($exception);
+        }
     }
     
 }

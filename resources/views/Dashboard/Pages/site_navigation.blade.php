@@ -15,8 +15,8 @@
           <div class="alert-success card-body">
             <form method="POST" action="{{route("addNaviagtion")}}" id="navigation">
                 @csrf
-                <input type="hidden" name="id" value="">
-                <input type="hidden" name="action" value="insert">
+                <input type="hidden" name="id" id="id" value="">
+                <input type="hidden" name="action" id="action" value="insert">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 mb-3">
                         <label class="form-label" for="title">Menu Title</label>
@@ -49,7 +49,7 @@
                       </div>
                       <div class="col-md-4 col-sm-12 mb-3">
                         <label class="form-label" for="basic-default-phone">View In List</label>
-                        <select class="form-control" name="view_in_list" id="type" required>
+                        <select class="form-control" name="view_in_list" id="view_in_list" required>
                             <option value="">Select</option>
                             <option value="yes">View</option>
                             <option value="no">Hide</option>
@@ -57,7 +57,7 @@
                       </div>
                       <div class="col-md-4 col-sm-12 mb-3">
                         <label class="form-label" for="position">Position</label>
-                        <input type="number" class="form-control" id="position" placeholder="Position" >
+                        <input type="number" class="form-control" id="position" name="position" placeholder="Position" >
                       </div>
                       <div class="col-md-12 col-sm-12 mb-3 text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -124,6 +124,19 @@
           ]
       });
       
+    });
+    $(document).on("click",".edit",function(){
+        let row = $.parseJSON(atob($(this).data("row")));
+        if(row['id']){
+          $("#id").val(row['id']);
+          $("#title").val(row['title']);
+          $("#url_link").val(row['url']);
+          $("#url_target").val(row['url_target']);
+          $("#nav_type").val(row['nav_type']);
+          $("#view_in_list").val(row['view_in_list']);
+          $("#position").val(row['position']);
+          $("#action").val("update");
+        }
     });
   </script>
   @include("Dashboard.include.dataTablesScript")

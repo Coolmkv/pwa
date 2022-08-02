@@ -82,6 +82,13 @@
                   <div data-i18n="Analytics">Naviagtion</div>
                 </a>
               </li>
+              <!-- Site Navigation -->
+              <li class="menu-item">
+                <a href="{{route("manageGallery")}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-images"></i>
+                  <div data-i18n="Analytics">Manage Gallery</div>
+                </a>
+              </li>
               <!-- Layouts -->
               {{-- <li class="menu-item active open">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">

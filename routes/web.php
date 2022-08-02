@@ -37,6 +37,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get("site-navigation",[AdminController::class,"siteNav"])->name("siteNav");
     Route::post("addEditNavigation",[AdminController::class,"addEditNavigation"])->name("addNaviagtion");
     Route::post("navDataTable",[AdminController::class,"navDataTable"])->name("navDataTable");
+
+    Route::get("manage-gallery",[AdminController::class,"manageGallery"])->name("manageGallery");
 });
 
 
