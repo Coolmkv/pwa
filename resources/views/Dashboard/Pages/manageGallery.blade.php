@@ -9,55 +9,58 @@
       <div class="col-md-12">
         <div class="card mb-4">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Add Manage Gallery</h5>
+            <h5 class="mb-0">Add Gallery Items</h5>
             {{-- <small class="text-muted float-end">Default label</small> --}}
           </div>
           <div class="alert-success card-body">
-            <form method="POST" action="{{route("addNaviagtion")}}" id="navigation">
+            <form method="POST" enctype="multipart/form-data" action="javascript:" id="galleryItems">
                 @csrf
                 <input type="hidden" name="id" id="id" value="">
                 <input type="hidden" name="action" id="action" value="insert">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 mb-3">
-                        <label class="form-label" for="title">Menu Title</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="Home" required>
+                      <label class="form-label" for="local_image">Upload Images</label>
+                      <input type="file" name="local_image[]" class="form-control" id="local_image" 
+                      placeholder="Images" accept="image/*" >
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-3">
+                      <label class="form-label" for="image_link">Image Link</label>
+                      <input type="url" name="image_link" class="form-control" id="image_link" 
+                      placeholder="Image Link">
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-3">
+                      <label class="form-label" for="alternate_text">Alternate Text</label>
+                      <input type="text" name="alternate_text" class="form-control" id="alternate_text" 
+                      placeholder="Alernate Text For Image"> 
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-3">
+                      <label class="form-label" for="local_video">Upload Video</label>
+                      <input type="file" name="local_video" class="form-control" id="local_video" 
+                      placeholder="Video" accept="video/*">
+                    </div>
+                      <div class="col-md-4 col-sm-12 mb-3">
+                        <label class="form-label" for="video_link">Video Link</label>
+                        <input type="url" name="video_link" class="form-control" id="video_link" 
+                      placeholder="Video Link">
                       </div>
                       <div class="col-md-4 col-sm-12 mb-3">
-                        <label class="form-label" for="url_link">Title Link</label>
-                        <input type="text" name="url" class="form-control" id="url_link" placeholder="Url of Title" required>
+                        <label class="form-label" for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Gallery Item Title" >
                       </div>
                       <div class="col-md-4 col-sm-12 mb-3">
-                        <label class="form-label" for="url_target">Link Target Window</label>
-                        <div class="input-group input-group-merge">
-                            <select class="form-control" name="url_target" id="url_target">
-                                <option value="">Select</option>
-                                <option value="_blank">Open In New Window</option>
-                                <option value="_self" selected>Open In Same Window</option>
-                                <option value="_parent">Open In Parent Frame</option>
-                                <option value="_top">Open In Full body Of Window</option>
-                            </select> 
-                        </div> 
-                      </div>
-                      <div class="col-md-4 col-sm-12 mb-3">
-                        <label class="form-label" for="nav_type">Nav Type</label>
-                        <select class="form-control" name="nav_type" id="nav_type" required>
-                            <option value="">Select</option>
-                            <option value="top">Top</option>
-                            <option value="footer">Footer</option>
-                            <option value="mobile">Mobile</option>
-                        </select> 
-                      </div>
-                      <div class="col-md-4 col-sm-12 mb-3">
-                        <label class="form-label" for="basic-default-phone">View In List</label>
-                        <select class="form-control" name="view_in_list" id="view_in_list" required>
-                            <option value="">Select</option>
-                            <option value="yes">View</option>
-                            <option value="no">Hide</option>
-                        </select> 
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" placeholder="Gallery Item Description"></textarea>
                       </div>
                       <div class="col-md-4 col-sm-12 mb-3">
                         <label class="form-label" for="position">Position</label>
                         <input type="number" class="form-control" id="position" name="position" placeholder="Position" >
+                      </div>
+                      <div class="col-md-4 col-sm-12 mb-3">
+                        <label class="form-label" for="view_status">View Status</label>
+                        <select class="form-control" name="view_status" id="view_status">
+                          <option value="visible">Visibile</option>
+                          <option value="hidden">Hidden</option>
+                        </select>
                       </div>
                       <div class="col-md-12 col-sm-12 mb-3 text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -75,17 +78,21 @@
                 <h5 class="mb-0">Nav Data</h5>
             </div>
             <div class="alert-info card-body">
-                <table class="table table-bordered data-table">
+                <table class="table table-bordered data-table table-responsive">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Url</th>
-                            <th>Target</th>
-                            <th>Nav Type</th>
-                            <th>Position</th>
-                            <th>View In List</th>
-                            <th width="100px">Action</th>
+                          <th width="100px">Action</th>
+                          <th>Id</th>
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Alternate Text</th>
+                          <th>Image Local</th>
+                          <th>Image Link</th>
+                          <th>Video Local</th>
+                          <th>Video Link</th>
+                          <th>Position</th>
+                          <th>View Status</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -95,32 +102,66 @@
         </div>
       </div>       
     </div>
-  </div>
+  </div>  
 @endsection
 
 @section("script")
 <script type="text/javascript">
+    let site_url = '{{ url("/") }}';
     $(function () {
       
       var table = $('.data-table').DataTable({
           processing: true, 
           serverSide: true,
           ajax: {
-            url:"{{ route('navDataTable') }}",
+            url:"{{ route('addGalleryDataTable') }}",
             type: 'POST',
             data:{
               '_token':'{{ csrf_token() }}'
             }
           },
+          "scrollX": true,
+          "order": [[1,'desc']],
           columns: [
-              {data: '{{ \App\Models\NavMenu::ID }}', name: '{{ \App\Models\NavMenu::ID }}'},
-              {data: '{{ \App\Models\NavMenu::TITLE }}', name: '{{ \App\Models\NavMenu::TITLE }}'},
-              {data: '{{ \App\Models\NavMenu::URL }}', name: '{{ \App\Models\NavMenu::URL }}'},
-              {data: '{{ \App\Models\NavMenu::URL_TARGET }}', name: '{{ \App\Models\NavMenu::URL_TARGET }}'},
-              {data: '{{ \App\Models\NavMenu::NAV_TYPE }}', name: '{{ \App\Models\NavMenu::NAV_TYPE }}'},
-              {data: '{{ \App\Models\NavMenu::POSITION }}', name: '{{ \App\Models\NavMenu::POSITION }}'},
-              {data: '{{ \App\Models\NavMenu::VIEW_IN_LIST }}', name: '{{ \App\Models\NavMenu::VIEW_IN_LIST }}'},
               {data: 'action', name: 'action', orderable: false, searchable: false},
+              {data: '{{ \App\Models\GalleryItem::ID }}', name: '{{ \App\Models\GalleryItem::ID }}'},
+              {data: '{{ \App\Models\GalleryItem::TITLE }}', name: '{{ \App\Models\GalleryItem::TITLE }}'},
+              {data: '{{ \App\Models\GalleryItem::DESCRIPTION }}', name: '{{ \App\Models\GalleryItem::DESCRIPTION }}'},
+              {data: '{{ \App\Models\GalleryItem::ALTERNATE_TEXT }}', name: '{{ \App\Models\GalleryItem::ALTERNATE_TEXT }}'},
+              {data: '{{ \App\Models\GalleryItem::LOCAL_IMAGE }}', render:function(data,type){
+                let image = '';
+                if(data){
+                  image += '<img alt="Stored Image" src="'+site_url+data+'" class="img-thumbnail">';
+                }
+                return image;
+              },orderable: false, searchable: false},
+              {data: '{{ \App\Models\GalleryItem::LOCAL_IMAGE }}', render:function(data,type){
+                
+                let image = '';
+                if(data){
+                  image += '<img alt="Image Link" src="'+data+'" class="img-thumbnail">';
+                }
+                return image;
+              },orderable: false, searchable: false},
+              {data: '{{ \App\Models\GalleryItem::LOCAL_VIDEO }}', render:function(data,type){
+                let video = '';
+                if(data){
+                  video += '<video width="100" height="100" controls><source src="'+site_url+data+'" type="video/mp4">'+
+                    'Your browser does not support the video tag.</video>';
+                }
+                return video;
+              },orderable: false, searchable: false},
+              {data: '{{ \App\Models\GalleryItem::VIDEO_LINK }}', render:function(data,type){
+                let video = '';
+                if(data){
+                  video += '<video width="100" height="100" controls><source src="'+data+'" type="video/mp4">'+
+                    'Your browser does not support the video tag.</video>';
+                }
+                return video;
+              },orderable: false, searchable: false},
+              {data: '{{ \App\Models\GalleryItem::POSITION }}', name: '{{ \App\Models\GalleryItem::POSITION }}'},
+              {data: '{{ \App\Models\GalleryItem::VIEW_STATUS }}', name: '{{ \App\Models\GalleryItem::VIEW_STATUS }}'},
+              
           ]
       });
       
@@ -137,6 +178,25 @@
           $("#position").val(row['position']);
           $("#action").val("update");
         }
+    });
+    $(document).ready(function(){
+      $("#galleryItems").on("submit",function(){
+        var form = new FormData(this);
+        $.ajax({
+          type:'POST',
+          url:'{{ route("addGalleryItems") }}',
+          data:form,
+          cache:false,
+          contentType: false,
+          processData: false,
+          success:function(response){
+            alert(response.message);
+          },
+          failure:function(response){
+            alert(response.message);
+          }
+        });
+      });
     });
   </script>
   @include("Dashboard.include.dataTablesScript")

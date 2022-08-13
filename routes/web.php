@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post("navDataTable",[AdminController::class,"navDataTable"])->name("navDataTable");
 
     Route::get("manage-gallery",[AdminController::class,"manageGallery"])->name("manageGallery");
+    Route::post("addGalleryItems",[AdminController::class,"addGalleryItems"])->name("addGalleryItems");
+    Route::post("addGalleryDataTable",[AdminController::class,"addGalleryDataTable"])->name("addGalleryDataTable");
 });
 
 

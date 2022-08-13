@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GalleryItem;
 use App\Models\NavMenu;
 use App\Models\User;
 use App\Traits\CommonFunctions;
@@ -105,7 +106,7 @@ class AdminController extends Controller
                     $return = ["status"=>false,"message"=>"Invalid action","data"=>null];
                 }
                 if($return["status"]){
-                    $return = redirect()->back()->withInput()->with("success",$return["message"]);
+                    $return = redirect()->back()->with("success",$return["message"]);
                 }else{
                     $return = redirect()->back()->withInput()->with("error",$return["message"]);
                 }                
@@ -129,7 +130,7 @@ class AdminController extends Controller
         NavMenu::NAV_TYPE,
         NavMenu::POSITION,
         NavMenu::VIEW_IN_LIST
-        );
+        )->where(NavMenu::STATUS,1);
 
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -143,7 +144,12 @@ class AdminController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
     }
-
+    
+    /**
+     * manageGallery
+     *
+     * @return void
+     */
     public function manageGallery(){
         try{
             return view("Dashboard.Pages.manageGallery");
@@ -151,6 +157,78 @@ class AdminController extends Controller
         }catch(Exception $exception){
             $this->reportException($exception);
         }
+    }
+    
+    /**
+     * addGalleryItems
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function addGalleryItems(Request $request){
+        try{
+            $validate = Validator::make($request->all(),[
+                GalleryItem::LOCAL_IMAGE=>"bail|nullable|required_without_all:image_link,local_video,video_link|array",
+                GalleryItem::LOCAL_IMAGE.".*"=>"image",
+                GalleryItem::IMAGE_LINK=>"bail|nullable|url|required_without_all:local_image,local_video,video_link",
+                GalleryItem::ALTERNATE_TEXT=>"bail|string|nullable",
+                GalleryItem::LOCAL_VIDEO=>"bail|nullable|video|required_without_all:image_link,local_image,local_video,video_link",
+                GalleryItem::VIDEO_LINK=>"bail|nullable|url|required_without_all:local_image,image_link,local_video,video_link",
+                GalleryItem::TITLE=>"bail|nullable|string",
+                GalleryItem::DESCRIPTION=>"bail|nullable|string",
+                GalleryItem::POSITION=>"bail|nullable|numeric",
+                GalleryItem::VIEW_STATUS=>"required|in:visible,hidden",
+                "action"=>"required|in:insert,delete,update",
+                GalleryItem::ID=>"required_if:action,delete,update"
+            ]);
+            if($validate->fails()){
+                $return = ["status"=>false,"message"=>$validate->getMessageBag()->first(),"data"=>null];
+            }else{                
+                if($request->input("action")=="insert"){
+                    $return = (new GalleryItem())->addGalleryItem($request);
+                }elseif($request->input("action")=="update"){
+                    $return = (new NavMenu())->updateNavMenu($request->all());
+                }elseif($request->input("action")=="delete"){
+                    $return = (new NavMenu())->deleteNavMenu($request->all());
+                }else{
+                    $return = ["status"=>false,"message"=>"Invalid action","data"=>null];
+                }                                 
+            }
+            return response()->json($return);
+        }catch(Exception $exception){
+            $this->reportException($exception);
+        }
+    }
+    
+    /**
+     * addGalleryDataTable
+     *
+     * @return void
+     */
+    public function addGalleryDataTable(){
+        $data = GalleryItem::select(
+            GalleryItem::ID,
+            GalleryItem::LOCAL_IMAGE,
+            GalleryItem::IMAGE_LINK,
+            GalleryItem::ALTERNATE_TEXT,
+            GalleryItem::VIDEO_LINK,
+            GalleryItem::LOCAL_VIDEO,
+            GalleryItem::TITLE,
+            GalleryItem::DESCRIPTION,
+            GalleryItem::POSITION,
+            GalleryItem::VIEW_STATUS,
+        )->where(GalleryItem::STATUS,1);
+
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+     
+                           $btn = '<a data-row="'.base64_encode(json_encode($row)).'" href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>'.
+                           '<a href="javascript:void(0)" onclick="delete(\''.$row->{GalleryItem::ID}.'\')" class="edit btn btn-danger btn-sm">Delete</a>';
+    
+                            return $btn;
+                    })->rawColumns(['action'])
+                    ->make(true);
     }
     
 }
