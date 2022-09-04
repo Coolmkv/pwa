@@ -26,6 +26,7 @@ use Inertia\Inertia;
 //     ]);
 // });
 Route::get("/",[HomePageController::class,"homePage"]);
+Route::get("gallery-page",[HomePageController::class,"galleryPage"])->name("Gallery");
 Route::get("adminLogin",[AdminController::class,"adminLogin"]);
 Route::get('/dashboard', function () {
     //return view("Dashboard.dashboard_home");
@@ -48,3 +49,5 @@ require __DIR__.'/auth.php';
 
 Route::get("login",[AdminController::class,"Login"])->name("login");
 Route::post("AdminUserLogin",[AdminController::class,"AdminLoginUser"])->name("AdminLogin");
+Route::get("getmenu-items",[HomePageController::class,"getMenu"]);
+//pages

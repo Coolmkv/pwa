@@ -108,9 +108,10 @@
 @section("script")
 <script type="text/javascript">
     let site_url = '{{ url("/") }}';
+    var table = "";
     $(function () {
       
-      var table = $('.data-table').DataTable({
+      table = $('.data-table').DataTable({
           processing: true, 
           serverSide: true,
           ajax: {
@@ -170,13 +171,15 @@
         let row = $.parseJSON(atob($(this).data("row")));
         if(row['id']){
           $("#id").val(row['id']);
+          $("#image_link").val(row['image_link']);
+          $("#alternate_text").val(row['alternate_text']);
+          $("#video_link").val(row['video_link']);
           $("#title").val(row['title']);
-          $("#url_link").val(row['url']);
-          $("#url_target").val(row['url_target']);
-          $("#nav_type").val(row['nav_type']);
-          $("#view_in_list").val(row['view_in_list']);
+          $("#description").val(row['description']);
           $("#position").val(row['position']);
+          $("#view_status").val(row['view_status']);
           $("#action").val("update");
+          
         }
     });
     $(document).ready(function(){
@@ -191,6 +194,10 @@
           processData: false,
           success:function(response){
             alert(response.message);
+            table.ajax.reload();
+            $("#id").val('');
+            $("#action").val("insert");
+            $("#galleryItems")[0].reset();
           },
           failure:function(response){
             alert(response.message);

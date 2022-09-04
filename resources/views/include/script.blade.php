@@ -12,3 +12,11 @@
     <script src="js/contact_me.js"></script>
     <!-- ALL PLUGINS -->
     <script src="js/custom.js"></script>
+    <script src="js/webSiteJs.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+            loadMenu();
+        });
+        
+    </script>

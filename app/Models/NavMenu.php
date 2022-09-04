@@ -22,11 +22,14 @@ class NavMenu extends Model
     const NAV_TYPE = "nav_type";
     const POSITION = "position";
     const VIEW_IN_LIST = "view_in_list";
+    const PARENT_ID = "parent_id";
     const STATUS = "status";
     const CREATED_BY = "created_by";
     const CREATED_AT = "created_at";
     const UPDATED_BY = "updated_by";
     const UPDATED_AT = "updated_at";
+    const VIEW_IN_LIST_YES = "yes";
+    const VIEW_IN_LIST_NO = "no";
 
     /**
      * insertNavMenu
@@ -52,7 +55,8 @@ class NavMenu extends Model
                     self::POSITION => $this->checkAndGetPosition($requestData[self::POSITION] ?? ""),
                     self::VIEW_IN_LIST => $requestData[self::VIEW_IN_LIST],
                     self::STATUS => 1,
-                    self::CREATED_BY=>Auth::id()
+                    self::CREATED_BY=>Auth::id(),
+                    self::PARENT_ID=>$this->checkParent($requestData)
                 ]);
                 if ($insertId) {
                     $return = ["status" => true, "message" => "Inserted", "data" => null];
@@ -121,7 +125,8 @@ class NavMenu extends Model
                         self::POSITION => $this->checkAndGetPosition($requestData[self::POSITION] ?? ""),
                         self::VIEW_IN_LIST => $requestData[self::VIEW_IN_LIST],
                         self::STATUS => 1,
-                        self::UPDATED_BY=>Auth::id()
+                        self::UPDATED_BY=>Auth::id(),
+                        self::PARENT_ID=>$this->checkParent($requestData)
                     ]
                 );
                 if ($update) {
@@ -159,6 +164,33 @@ class NavMenu extends Model
             }
         } catch (Exception $exception) {
             $return = ["status" => false, "message" => $exception->getMessage(), "data" => null];
+        }
+        return $return;
+    }
+
+    public function getParentNavMenu(){
+        return NavMenu::where([
+            [NavMenu::STATUS,1],
+            [NavMenu::VIEW_IN_LIST,NavMenu::VIEW_IN_LIST_YES]
+        ])->whereNull(NavMenu::PARENT_ID)->select(NavMenu::ID,NavMenu::TITLE,NavMenu::NAV_TYPE)->get();
+    }
+
+    public function checkParent($requestData){
+        $return = null;
+        try{
+            if(!empty($requestData[NavMenu::PARENT_ID])){
+                $check = NavMenu::where([
+                    [NavMenu::STATUS,1],
+                    [NavMenu::ID,$requestData[NavMenu::PARENT_ID]],
+                    [NavMenu::NAV_TYPE,$requestData[NavMenu::NAV_TYPE]]
+                ])->whereNull(NavMenu::PARENT_ID)->first();
+                if($check){
+                    $return = $requestData[NavMenu::PARENT_ID];
+                }
+            }
+
+        }catch(Exception $exception){
+
         }
         return $return;
     }

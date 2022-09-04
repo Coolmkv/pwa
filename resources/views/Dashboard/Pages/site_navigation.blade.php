@@ -59,6 +59,13 @@
                         <label class="form-label" for="position">Position</label>
                         <input type="number" class="form-control" id="position" name="position" placeholder="Position" >
                       </div>
+                      <div class="col-md-4 col-sm-12 mb-3">
+                        <label class="form-label" for="basic-default-phone">Parent Link</label>
+                        <select class="form-control" name="parent_id" id="parent_id" >
+                            <option value="">Select</option>
+                             
+                        </select> 
+                      </div>
                       <div class="col-md-12 col-sm-12 mb-3 text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-danger">Reset</button>
@@ -137,6 +144,18 @@
           $("#position").val(row['position']);
           $("#action").val("update");
         }
+    });
+    let all_parent = $.parseJSON('{!! json_encode($all_parent) !!}');
+    $("#nav_type").on("change",function(){
+      let select = '<option value="">Select</option>';
+      let nav_type = $(this).val();
+      let id = $("#id").val();
+      all_parent.forEach(element => {
+        if(element.nav_type==nav_type && element.id!=id){
+          select += '<option value="'+element.id+'">'+element.title+'</option>';
+        }
+      });
+      $("#parent_id").html(select);
     });
   </script>
   @include("Dashboard.include.dataTablesScript")

@@ -9,7 +9,7 @@
        <i class="fa fa-bars"></i>
      </button>
      <div class="collapse navbar-collapse" id="navbarResponsive">
-       <ul class="navbar-nav ml-auto">
+       <ul class="navbar-nav ml-auto" id="top_menu">
          <li class="nav-item">
            <a class="nav-link js-scroll-trigger" href="index.php">Home</a>
          </li>
@@ -22,14 +22,26 @@
          <li class="nav-item">
            <a class="nav-link js-scroll-trigger" href="gallery.php">Gallery</a>
          </li>
-      <li class="nav-item">
+         <li class="nav-item">
            <a class="nav-link js-scroll-trigger" href="videos.php">Videos</a>
          </li>            
-      <li class="nav-item">
+         <li class="nav-item">
            <a class="nav-link js-scroll-trigger" href="index.php#contact">Contact Us</a>
          </li>
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            Dropdown link
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
        </ul>
      </div>
    </div>
  </nav>	
  <!-- Slider -->
+
+ 

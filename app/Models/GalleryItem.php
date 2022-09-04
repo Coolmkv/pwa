@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class GalleryItem extends Model
 {
@@ -32,6 +33,7 @@ class GalleryItem extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_BY = 'updated_by';
     const UPDATED_AT = 'updated_at';
+    const VIEW_STATUS_VISIBLE = "visible";
 
     const IMAGE_UPLOAD_PATH = "/upload/gallery/images/";
     const VIDEO_UPLOAD_PATH = "/upload/gallery/videos/";
@@ -81,5 +83,91 @@ class GalleryItem extends Model
             $this->reportException($exception);
             return ["status"=>false,"message"=>"Something went wrong.","data"=>"null"];
         }
+    }
+
+    public function updateGalleryItem(Request $request){
+        try{
+            $check = self::where([
+                [self::ID,$request->input(self::ID)],
+                [self::STATUS,1]])->first();
+            if($check){
+                $update = [
+                    self::IMAGE_LINK=>$request->input(self::IMAGE_LINK),
+                    self::VIDEO_LINK=>$request->input(self::VIDEO_LINK),
+                    self::ALTERNATE_TEXT=>$request->input(self::ALTERNATE_TEXT),
+                    self::TITLE=>$request->input(self::TITLE),
+                    self::DESCRIPTION=>$request->input(self::DESCRIPTION),
+                    self::POSITION=>$request->input(self::POSITION),
+                    self::VIEW_STATUS=>$request->input(self::VIEW_STATUS),
+                    self::STATUS=>1,
+                    self::UPDATED_BY=>Auth::user()->id,
+                ];
+                GalleryItem::where(self::ID,$check->{self::ID})->update($update);
+                $maxId = GalleryItem::max(self::ID);
+                if(empty($maxId)){
+                    $maxId = 1;
+                }else{
+                    $maxId++;
+                }
+                if($request->file(self::LOCAL_IMAGE)){
+                    
+                    $i = 0 ;
+                    foreach($request->file(self::LOCAL_IMAGE) as $galleryItem){
+                        
+                        $fileName = $galleryItem->getClientOriginalName();
+                        $fileName = "Img_$maxId".preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
+                        $galleryItem->move(public_path().self::IMAGE_UPLOAD_PATH, $fileName);
+                        $update[self::LOCAL_IMAGE] = self::IMAGE_UPLOAD_PATH.$fileName;
+                        if($i==0){
+                            GalleryItem::where(self::ID,$check->{self::ID})->update($update);
+                            if($check->{self::LOCAL_IMAGE}){
+                                File::delete(app_path($check->{self::LOCAL_IMAGE}));
+                            }
+                            
+                        }else{
+                            unset($update[self::UPDATED_BY]);
+                            $update[self::CREATED_BY] = Auth::user()->id;
+                            
+                            GalleryItem::insert($update);
+                        }
+                        
+                        $maxId++;
+                        $i++;
+                    }
+                }
+                
+
+                if($request->file(self::LOCAL_VIDEO)){
+                    $insert[self::LOCAL_IMAGE] = null;
+                    $video = $request->file(self::LOCAL_VIDEO);
+                    $fileName = $video->getClientOriginalName();
+                    $fileName = "Video_$maxId".preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
+                    $video->move(public_path().self::VIDEO_UPLOAD_PATH, $fileName);
+                    $update[self::LOCAL_VIDEO] = self::VIDEO_UPLOAD_PATH.$fileName;
+                    if($check->{self::LOCAL_VIDEO}){
+                        File::delete(app_path($check->{self::LOCAL_VIDEO}));
+                    }
+                    $update[self::UPDATED_BY] = Auth::user()->id;
+                    GalleryItem::where(self::ID,$check->{self::ID})->update($update);
+                }
+                $return = ["status"=>true,"message"=>"Updated.","data"=>"null"];  
+            }else{
+                $return = ["status"=>false,"message"=>"Not found.","data"=>"null"];
+            }    
+            return $return;
+        }catch(Exception $exception){
+            $this->reportException($exception);
+            return ["status"=>false,"message"=>"Something went wrong.","data"=>"null"];
+        }
+    }
+
+    public function getAllGalleryImages(){
+        return self::where([
+            [self::STATUS,1],
+            [self::VIEW_STATUS,self::VIEW_STATUS_VISIBLE]
+        ])->select(self::LOCAL_IMAGE,
+        self::IMAGE_LINK,self::ALTERNATE_TEXT,self::TITLE,self::DESCRIPTION)
+        ->whereNULL(self::VIDEO_LINK)
+        ->whereNULL(self::LOCAL_VIDEO)->orderBy(self::POSITION,'asc')->get();
     }
 }

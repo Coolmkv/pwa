@@ -29,7 +29,8 @@ class AdminController extends Controller
     }
     public function siteNav(Request $request){
         try{
-            return view("Dashboard.Pages.site_navigation");
+            $all_parent = (new NavMenu())->getParentNavMenu();
+            return view("Dashboard.Pages.site_navigation",compact("all_parent"));
 
         }catch(Exception $exception){
             $this->reportException($exception);
@@ -167,7 +168,7 @@ class AdminController extends Controller
      */
     public function addGalleryItems(Request $request){
         try{
-            $validate = Validator::make($request->all(),[
+            $validation = [
                 GalleryItem::LOCAL_IMAGE=>"bail|nullable|required_without_all:image_link,local_video,video_link|array",
                 GalleryItem::LOCAL_IMAGE.".*"=>"image",
                 GalleryItem::IMAGE_LINK=>"bail|nullable|url|required_without_all:local_image,local_video,video_link",
@@ -180,14 +181,36 @@ class AdminController extends Controller
                 GalleryItem::VIEW_STATUS=>"required|in:visible,hidden",
                 "action"=>"required|in:insert,delete,update",
                 GalleryItem::ID=>"required_if:action,delete,update"
-            ]);
+            ];
+            if($request->input("action")=="update"){
+                $validation = [
+                    GalleryItem::LOCAL_IMAGE=>"bail|nullable|array",
+                    GalleryItem::LOCAL_IMAGE.".*"=>"image",
+                    GalleryItem::IMAGE_LINK=>"bail|nullable|url",
+                    GalleryItem::ALTERNATE_TEXT=>"bail|string|nullable",
+                    GalleryItem::LOCAL_VIDEO=>"bail|nullable",
+                    GalleryItem::VIDEO_LINK=>"bail|nullable|url",
+                    GalleryItem::TITLE=>"bail|nullable|string",
+                    GalleryItem::DESCRIPTION=>"bail|nullable|string",
+                    GalleryItem::POSITION=>"bail|nullable|numeric",
+                    GalleryItem::VIEW_STATUS=>"required|in:visible,hidden",
+                    "action"=>"required|in:insert,delete,update",
+                    GalleryItem::ID=>"required_if:action,delete,update"
+                ];
+            }else if($request->input("action")=="delete"){
+                $validation = [
+                    GalleryItem::ID=>"required|exists:".GalleryItem::TABLE_NAME,
+                    "action"=>"required|in:insert,delete,update"
+                ];
+            }
+            $validate = Validator::make($request->all(),$validation);
             if($validate->fails()){
                 $return = ["status"=>false,"message"=>$validate->getMessageBag()->first(),"data"=>null];
             }else{                
                 if($request->input("action")=="insert"){
                     $return = (new GalleryItem())->addGalleryItem($request);
                 }elseif($request->input("action")=="update"){
-                    $return = (new NavMenu())->updateNavMenu($request->all());
+                    $return = (new GalleryItem())->updateGalleryItem($request);
                 }elseif($request->input("action")=="delete"){
                     $return = (new NavMenu())->deleteNavMenu($request->all());
                 }else{
