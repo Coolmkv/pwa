@@ -21,7 +21,7 @@
                     <div class="col-md-4 col-sm-12 mb-3">
                       <label class="form-label" for="local_image">Upload Images</label>
                       <input type="file" name="local_image[]" class="form-control" id="local_image" 
-                      placeholder="Images" accept="image/*" >
+                      placeholder="Images" accept="image/*" multiple>
                     </div>
                     <div class="col-md-4 col-sm-12 mb-3">
                       <label class="form-label" for="image_link">Image Link</label>

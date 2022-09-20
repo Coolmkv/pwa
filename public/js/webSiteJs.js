@@ -1,5 +1,5 @@
 $(document).ready(function(){
-     
+    loadMenu();
 });
 let windowUrl = window.location.hostname;
 function loadMenu(){
@@ -9,7 +9,7 @@ function loadMenu(){
         accept:'json',
         success:function(data){
              
-            if(data.menu_html.top){
+            if( typeof(data.menu_html.top) != "undefined" && data.menu_html.top !== null){
                 $("#top_menu").html(data.menu_html.top);
             }
         }
