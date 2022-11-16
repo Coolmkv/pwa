@@ -143,6 +143,10 @@
           $("#view_in_list").val(row['view_in_list']);
           $("#position").val(row['position']);
           $("#action").val("update");
+
+          scrollToDiv();
+        }else{
+          errorMessage("Something went wrong. Code 101");
         }
     });
     let all_parent = $.parseJSON('{!! json_encode($all_parent) !!}');
@@ -157,6 +161,34 @@
       });
       $("#parent_id").html(select);
     });
+
+    function deleteNav(id)
+    {
+      if(id){
+        $.ajax({
+          type:'POST',
+          url:'{{ route("deleteNavigation") }}',
+          data:{
+            id:id,
+            action:"delete",
+            '_token':'{{csrf_token()}}'
+          },
+          success:function(response){
+            if(response.status){
+              successMessage(response.message);
+              table.ajax.reload()
+            }else{
+              errorMessage(response.message);
+            }
+          },
+          failure:function(response){
+            errorMessage(response.message);
+          }
+        });
+      }else{
+        errorMessage("Something went wrong. Code 102");
+      }
+    }
   </script>
   @include("Dashboard.include.dataTablesScript")
 @endsection

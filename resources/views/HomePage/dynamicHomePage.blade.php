@@ -19,7 +19,7 @@
                             प्रान्त समेत 6 प्रदेशों के कुछ लोगों ने "परिवर्तन वेलफेयर एसोसिएशन" संस्था का पंजीकरण कराया
                             जिससे राष्ट्र निर्माण में नई भूमिका अदा की जा सके।</p>
 
-                        <a href="about.php" class="sim-btn hvr-rectangle-out"><span>More About Us</span></a>
+                        <a href="{{ route("aboutUs")}}" class="sim-btn hvr-rectangle-out"><span>More About Us</span></a>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
 

@@ -67,6 +67,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       $(document).ready(function(){
         let currentLocation = window.location;
@@ -77,6 +79,36 @@
           }
         });
       });
+      let success_message = "{{ session('success')}}";
+      let error_message = "{{ session('error')}}";
+      $(document).ready(function(){
+        if(success_message){
+          successMessage(success_message);
+        }else if(error_message){
+          errorMessage(error_message);
+        }
+      });
+      function successMessage(success_message){
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: success_message
+          });
+      }
+      function errorMessage(error_message){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error_message             
+          });
+      }
+      function scrollToDiv(id){
+        if(id){
+          $("html, body").animate({ scrollTop: $("#elementID").offset().top }, "slow");
+        }else{
+          $("html, body").animate({ scrollTop: 0 }, "slow");
+        }        
+      }
     </script>
   </body>
   @yield("script")

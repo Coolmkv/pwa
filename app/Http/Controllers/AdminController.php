@@ -90,8 +90,8 @@ class AdminController extends Controller
                 NavMenu::NAV_TYPE=>"bail|required_if:action,insert,update|string|in:mobile,top,footer",
                 NavMenu::VIEW_IN_LIST=>"bail|required_if:action,insert,update|in:yes,no",
                 NavMenu::POSITION=>"bail|nullable|numeric",
-                "action"=>"required|in:insert,delete,update",
-                NavMenu::ID=>"required_if:action,delete,update"
+                "action"=>"required|in:insert,update",
+                NavMenu::ID=>"required_if:action,update"
             ]);
             if($validate->fails()){
                 $return = redirect()->back()->withInput()->with("error",$validate->getMessageBag()->first());
@@ -101,8 +101,6 @@ class AdminController extends Controller
                     $return = (new NavMenu())->insertNavMenu($request->all());
                 }elseif($request->input("action")=="update"){
                     $return = (new NavMenu())->updateNavMenu($request->all());
-                }elseif($request->input("action")=="delete"){
-                    $return = (new NavMenu())->deleteNavMenu($request->all());
                 }else{
                     $return = ["status"=>false,"message"=>"Invalid action","data"=>null];
                 }
@@ -138,7 +136,7 @@ class AdminController extends Controller
                     ->addColumn('action', function($row){
      
                            $btn = '<a data-row="'.base64_encode(json_encode($row)).'" href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>'.
-                           '<a href="javascript:void(0)" onclick="delete(\''.$row->{NavMenu::ID}.'\')" class="edit btn btn-danger btn-sm">Delete</a>';
+                           '<a href="javascript:void(0)" onclick="deleteNav(\''.$row->{NavMenu::ID}.'\')" class="edit btn btn-danger btn-sm">Delete</a>';
     
                             return $btn;
                     })
@@ -212,7 +210,7 @@ class AdminController extends Controller
                 }elseif($request->input("action")=="update"){
                     $return = (new GalleryItem())->updateGalleryItem($request);
                 }elseif($request->input("action")=="delete"){
-                    $return = (new NavMenu())->deleteNavMenu($request->all());
+                    //$return = (new NavMenu())->deleteNavMenu($request->all());
                 }else{
                     $return = ["status"=>false,"message"=>"Invalid action","data"=>null];
                 }                                 
@@ -252,6 +250,38 @@ class AdminController extends Controller
                             return $btn;
                     })->rawColumns(['action'])
                     ->make(true);
+    }
+    
+    /**
+     * aboutUs
+     *
+     * @return void
+     */
+    public function aboutUs(){
+        return view("HomePage.aboutUs");
+    }
+
+    public function deleteNavigation(Request $request){
+        try{
+            $validate = Validator::make($request->all(),[
+                "action"=>"required|in:delete",
+                NavMenu::ID=>"required_if:action,delete,update"
+            ]);
+            if($validate->fails()){
+                $return = ["status"=>false,"message"=>$validate->getMessageBag()->first(),"data"=>null];
+            }else{
+                
+                if($request->input("action")=="delete"){
+                    $return = (new NavMenu())->deleteNavMenu($request->all());
+                }else{
+                    $return = ["status"=>false,"message"=>"Invalid action","data"=>null];
+                }
+                            
+            }
+            return response()->json($return);
+        }catch(Exception $exception){
+            $this->reportException($exception);
+        }
     }
     
 }

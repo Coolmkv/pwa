@@ -37,7 +37,10 @@ class HomePageController extends Controller
             foreach($menuItemTypes as $navType=>$val){
                 //for each type item
                 foreach($val as $item){
-                    
+                    if(!filter_var($item[NavMenu::URL], FILTER_VALIDATE_URL)){
+                        $item[NavMenu::URL] = url("")."/".$item[NavMenu::URL];
+                        //dd(url("items"));
+                    }
                     //parent id is null
                     if($item[NavMenu::PARENT_ID]==null && !isset($returnData[$navType][$item[NavMenu::ID]])){
                         $returnData[$navType][$item[NavMenu::ID]] = $item;

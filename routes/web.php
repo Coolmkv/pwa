@@ -28,6 +28,7 @@ use Inertia\Inertia;
 Route::get("/",[HomePageController::class,"homePage"]);
 Route::get("gallery-page",[HomePageController::class,"galleryPage"])->name("Gallery");
 Route::get("adminLogin",[AdminController::class,"adminLogin"]);
+Route::get("about-us",[AdminController::class,"aboutUs"])->name("aboutUs");
 Route::get('/dashboard', function () {
     //return view("Dashboard.dashboard_home");
     return Inertia::render('Dashboard');
@@ -37,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/new-dashboard",[AdminController::class,"dashboard"])->name("new-dashboard");
     Route::get("site-navigation",[AdminController::class,"siteNav"])->name("siteNav");
     Route::post("addEditNavigation",[AdminController::class,"addEditNavigation"])->name("addNaviagtion");
+    Route::post("deleteNavigation",[AdminController::class,"deleteNavigation"])->name("deleteNavigation");
     Route::post("navDataTable",[AdminController::class,"navDataTable"])->name("navDataTable");
 
     Route::get("manage-gallery",[AdminController::class,"manageGallery"])->name("manageGallery");
