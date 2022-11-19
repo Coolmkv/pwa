@@ -11,33 +11,20 @@
      <div class="collapse navbar-collapse" id="navbarResponsive">
        <ul class="navbar-nav ml-auto" id="top_menu">
          <li class="nav-item">
-           <a class="nav-link js-scroll-trigger" href="index.php">Home</a>
+           <a class="nav-link js-scroll-trigger" href="#">Home</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link js-scroll-trigger" href="index.php#about">About</a>
+           <a class="nav-link js-scroll-trigger" href="#about">About</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link js-scroll-trigger" href="index.php#services">Events</a>
+           <a class="nav-link js-scroll-trigger" href="#services">Events</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link js-scroll-trigger" href="gallery.php">Gallery</a>
-         </li>
+           <a class="nav-link js-scroll-trigger" href="gallery">Gallery</a>
+         </li>      
          <li class="nav-item">
-           <a class="nav-link js-scroll-trigger" href="videos.php">Videos</a>
-         </li>            
-         <li class="nav-item">
-           <a class="nav-link js-scroll-trigger" href="index.php#contact">Contact Us</a>
-         </li>
-         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-            Dropdown link
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Link 1</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
-          </div>
-        </li>
+           <a class="nav-link js-scroll-trigger" href="#contact">Contact Us</a>
+         </li>          
        </ul>
      </div>
    </div>
