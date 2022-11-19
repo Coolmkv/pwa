@@ -1,5 +1,6 @@
     <!-- ALL JS FILES -->
-    <script src="js/all.js"></script>
+    <script src="js/all.js?v=1"></script>
+    {{-- https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js --}}
     {{-- <script src="js/jquery-3.6.1.min.js"></script> --}}
     
     <!-- Camera Slider -->
