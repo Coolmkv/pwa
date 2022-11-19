@@ -174,7 +174,9 @@ class HomePageController extends Controller
     }
      
     public function galleryPage(){
-        $getAllGalleryImages = (new GalleryItem())->getAllGalleryImages();
-        return view("HomePage.galleryPage",compact("getAllGalleryImages"));
+        $obj = new GalleryItem();
+        $getAllGalleryImages = $obj->getAllGalleryImages();
+        $getAllVideos = $obj->getAllGalleryVideos();
+        return view("HomePage.galleryPage",compact("getAllGalleryImages","getAllVideos"));
     }
 }

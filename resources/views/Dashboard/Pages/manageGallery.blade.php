@@ -36,7 +36,7 @@
                                 <div class="col-md-4 col-sm-12 mb-3">
                                     <label class="form-label" for="local_video">Upload Video</label>
                                     <input type="file" name="local_video" class="form-control" id="local_video"
-                                        placeholder="Video" accept="video/*">
+                                        placeholder="Video" >
                                 </div>
                                 <div class="col-md-4 col-sm-12 mb-3">
                                     <label class="form-label" for="video_link">Video Link</label>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Nav Data</h5>
+                        <h5 class="mb-0">Gallery Data</h5>
                     </div>
                     <div class="alert-info card-body">
                         <table class="table table-bordered data-table table-responsive">

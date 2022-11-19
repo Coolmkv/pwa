@@ -68,6 +68,25 @@
                         </div>
                         @endforeach
                     @endif 
+                    @if(!empty($getAllVideos))
+                        @foreach ($getAllVideos as $video)
+                            @if(!empty($video->{\App\Models\GalleryItem::LOCAL_VIDEO}))
+                            <div class="gallery-item">
+                                <video width="320" height="240" controls>
+                                    <source src="{{ $video->{\App\Models\GalleryItem::LOCAL_VIDEO} }}" type="video/mp4">
+                                  </video>
+                            </div>
+                            @endif
+                            @if(!empty($video->{\App\Models\GalleryItem::VIDEO_LINK}))
+                            <div class="gallery-item">
+                                <video width="320" height="240" controls>
+                                    <source src="{{ $video->{\App\Models\GalleryItem::VIDEO_LINK} }}" type="video/mp4">
+                                  </video>
+                            </div>
+                            @endif
+                            
+                        @endforeach
+                    @endif
                 </div>
             </div>
 

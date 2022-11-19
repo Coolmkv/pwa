@@ -77,6 +77,10 @@ class GalleryItem extends Model
                 $insert[self::LOCAL_VIDEO] = self::VIDEO_UPLOAD_PATH.$fileName;
                 GalleryItem::insert($insert);
             }
+            if($request->input(self::VIDEO_LINK)){
+                $insert[self::VIDEO_LINK] = $request->input(self::VIDEO_LINK);
+                GalleryItem::insert($insert);
+            }
             return ["status"=>true,"message"=>"Gallery Item saved.","data"=>"null"];
 
         }catch(Exception $exception){
@@ -160,7 +164,12 @@ class GalleryItem extends Model
             return ["status"=>false,"message"=>"Something went wrong.","data"=>"null"];
         }
     }
-
+    
+    /**
+     * getAllGalleryImages
+     *
+     * @return void
+     */
     public function getAllGalleryImages(){
         return self::where([
             [self::STATUS,1],
@@ -196,5 +205,20 @@ class GalleryItem extends Model
             $return = ["status" => false, "message" => $exception->getMessage(), "data" => null];
         }
         return $return;
+    }
+    
+    /**
+     * getAllGalleryVideos
+     *
+     * @return void
+     */
+    public function getAllGalleryVideos(){
+        return self::where([
+            [self::STATUS,1],
+            [self::VIEW_STATUS,self::VIEW_STATUS_VISIBLE]
+        ])->select(self::LOCAL_VIDEO,
+        self::VIDEO_LINK,self::ALTERNATE_TEXT,self::TITLE,self::DESCRIPTION)
+        ->whereNULL(self::IMAGE_LINK)
+        ->whereNULL(self::LOCAL_IMAGE)->orderBy(self::POSITION,'asc')->get();
     }
 }

@@ -171,8 +171,8 @@ class AdminController extends Controller
                 GalleryItem::LOCAL_IMAGE.".*"=>"image",
                 GalleryItem::IMAGE_LINK=>"bail|nullable|url|required_without_all:local_image,local_video,video_link",
                 GalleryItem::ALTERNATE_TEXT=>"bail|string|nullable",
-                GalleryItem::LOCAL_VIDEO=>"bail|nullable|video|required_without_all:image_link,local_image,local_video,video_link",
-                GalleryItem::VIDEO_LINK=>"bail|nullable|url|required_without_all:local_image,image_link,local_video,video_link",
+                GalleryItem::LOCAL_VIDEO=>"bail|nullable|mimetypes:video/avi,video/x-matroska,video/mp4,video/mpeg,video/quicktime|required_without_all:image_link,local_image,video_link",
+                GalleryItem::VIDEO_LINK=>"bail|nullable|url|required_without_all:image_link,local_video,video_link",
                 GalleryItem::TITLE=>"bail|nullable|string",
                 GalleryItem::DESCRIPTION=>"bail|nullable|string",
                 GalleryItem::POSITION=>"bail|nullable|numeric",
@@ -203,7 +203,7 @@ class AdminController extends Controller
             }
             $validate = Validator::make($request->all(),$validation);
             if($validate->fails()){
-                $return = ["status"=>false,"message"=>$validate->getMessageBag()->first(),"data"=>null];
+                $return = ["status"=>false,"message"=>$validate->getMessageBag()->first(),"data"=>$request->all()];
             }else{                
                 if($request->input("action")=="insert"){
                     $return = (new GalleryItem())->addGalleryItem($request);
@@ -217,6 +217,8 @@ class AdminController extends Controller
             }
             return response()->json($return);
         }catch(Exception $exception){
+            $return = ["status"=>false,"message"=>$exception->getMessage(),"data"=>null];
+            return response()->json($return);
             $this->reportException($exception);
         }
     }
