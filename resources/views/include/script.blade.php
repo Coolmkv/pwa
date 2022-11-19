@@ -1,5 +1,7 @@
     <!-- ALL JS FILES -->
     <script src="js/all.js"></script>
+    {{-- <script src="js/jquery-3.6.1.min.js"></script> --}}
+    
     <!-- Camera Slider -->
     {{-- <script src="js/jquery.mobile.customized.min.js"></script> --}}
     <script src="js/jquery.easing.1.3.js"></script>

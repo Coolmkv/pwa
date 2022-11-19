@@ -210,7 +210,7 @@ class AdminController extends Controller
                 }elseif($request->input("action")=="update"){
                     $return = (new GalleryItem())->updateGalleryItem($request);
                 }elseif($request->input("action")=="delete"){
-                    //$return = (new NavMenu())->deleteNavMenu($request->all());
+                    $return = (new GalleryItem())->deleteGalleryItem($request->all());
                 }else{
                     $return = ["status"=>false,"message"=>"Invalid action","data"=>null];
                 }                                 
@@ -245,7 +245,7 @@ class AdminController extends Controller
                     ->addColumn('action', function($row){
      
                            $btn = '<a data-row="'.base64_encode(json_encode($row)).'" href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>'.
-                           '<a href="javascript:void(0)" onclick="delete(\''.$row->{GalleryItem::ID}.'\')" class="edit btn btn-danger btn-sm">Delete</a>';
+                           '<a href="javascript:void(0)" onclick="deleteGallery(\''.$row->{GalleryItem::ID}.'\')" class="edit btn btn-danger btn-sm">Delete</a>';
     
                             return $btn;
                     })->rawColumns(['action'])

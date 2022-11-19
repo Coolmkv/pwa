@@ -170,4 +170,31 @@ class GalleryItem extends Model
         ->whereNULL(self::VIDEO_LINK)
         ->whereNULL(self::LOCAL_VIDEO)->orderBy(self::POSITION,'asc')->get();
     }
+    
+    /**
+     * deleteGalleryItem
+     *
+     * @param  mixed $requestData
+     * @return void
+     */
+    public function deleteGalleryItem($requestData){
+        
+        try {
+            $check = self::where([
+                [self::ID, $requestData[self::ID]],
+                [self::STATUS,1],
+            ])->first();
+            if($check){
+                $check->{self::STATUS} = 0;
+                $check->{self::UPDATED_BY} = Auth::id();
+                $check->save();
+                $return = ["status" => true, "message" => "Deleted", "data" => null];
+            } else {
+                $return = ["status" => false, "message" => "Record not found", "data" => null];
+            }
+        } catch (Exception $exception) {
+            $return = ["status" => false, "message" => $exception->getMessage(), "data" => null];
+        }
+        return $return;
+    }
 }
